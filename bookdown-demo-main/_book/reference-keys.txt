@@ -1,0 +1,16 @@
+fig:nice-fig
+tab:nice-tab
+intro
+basic-probability-calculations
+expectations
+independence
+simpsons-paradox-discrete-version
+simpsons-paradox-continuous-version
+blablabla
+literature
+methods
+math-example
+applications
+example-one
+example-two
+final-words
