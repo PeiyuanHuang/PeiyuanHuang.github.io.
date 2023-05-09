@@ -23,7 +23,7 @@
 <meta name="author" content="Yihui Xie" />
 
 
-<meta name="date" content="2023-05-02" />
+<meta name="date" content="2023-05-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -160,11 +160,22 @@ div.csl-indent {
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#basic-probability-calculations"><i class="fa fa-check"></i><b>1.1</b> Basic Probability Calculations</a></li>
-<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#expectations"><i class="fa fa-check"></i><b>1.2</b> Expectations</a></li>
-<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#independence"><i class="fa fa-check"></i><b>1.3</b> Independence</a></li>
-<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#simpsons-paradox-discrete-version"><i class="fa fa-check"></i><b>1.4</b> Simpson’s Paradox: Discrete Version</a></li>
-<li class="chapter" data-level="1.5" data-path="intro.html"><a href="intro.html#simpsons-paradox-continuous-version"><i class="fa fa-check"></i><b>1.5</b> Simpson’s Paradox: Continuous Version</a></li>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#basic-probability-calculations"><i class="fa fa-check"></i><b>1.1</b> Basic Probability Calculations</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="intro.html"><a href="intro.html#probability-models"><i class="fa fa-check"></i><b>1.1.1</b> Probability Models</a></li>
+<li class="chapter" data-level="1.1.2" data-path="intro.html"><a href="intro.html#expectations"><i class="fa fa-check"></i><b>1.1.2</b> Expectations</a></li>
+<li class="chapter" data-level="1.1.3" data-path="intro.html"><a href="intro.html#independence"><i class="fa fa-check"></i><b>1.1.3</b> Independence</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#simpsons-paradox"><i class="fa fa-check"></i><b>1.2</b> Simpson’s Paradox</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="intro.html"><a href="intro.html#binary-version"><i class="fa fa-check"></i><b>1.2.1</b> Binary Version</a></li>
+<li class="chapter" data-level="1.2.2" data-path="intro.html"><a href="intro.html#continuous-version"><i class="fa fa-check"></i><b>1.2.2</b> Continuous Version</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#regression-models"><i class="fa fa-check"></i><b>1.3</b> Regression Models</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#moment-based-estimation-and-sample-averages"><i class="fa fa-check"></i><b>1.4</b> Moment-based estimation and sample averages</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="intro.html"><a href="intro.html#importance-sampling"><i class="fa fa-check"></i><b>1.4.1</b> Importance Sampling</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="blablabla.html"><a href="blablabla.html"><i class="fa fa-check"></i><b>2</b> Blablabla</a></li>
 <li class="chapter" data-level="3" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>3</b> Literature</a></li>
@@ -202,31 +213,34 @@ div.csl-indent {
 <div id="header">
 <h1 class="title">Causal Inference Course Notes</h1>
 <p class="author"><em>Yihui Xie</em></p>
-<p class="date"><em>2023-05-02</em></p>
+<p class="date"><em>2023-05-08</em></p>
 </div>
 <div id="intro" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">Chapter 1</span> Introduction<a href="intro.html#intro" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>We begin with a review of the notations and some principles of probability calculations that will be used throughout this notes. Consider there are three random variables: <span class="math inline">\(X, Y\)</span> and <span class="math inline">\(Z\)</span>. Ultimately we will collect data <span class="math inline">\(\left\{\left(x_i, y_i, z_i\right), i=1, \ldots, n\right\}\)</span> which are observed values of the variables. A probabilistic model for the data comprises a joint density <span class="math inline">\(f_{X,Y,Z} (x,y,z)\)</span>, or a joint mass function for discrete variables, which represents how the data are generated. Notice that in the following calculations we are using density functions for ease of notation, but it shall follows the same rule for discrete or mixed cases. All we need is to substitute the integrals into summation.</p>
+<p>In this chapter, we shall review a few notations and some principles of probability and regression calculations that will be used throughout this notes.</p>
 <div id="basic-probability-calculations" class="section level2 hasAnchor" number="1.1">
 <h2><span class="header-section-number">1.1</span> Basic Probability Calculations<a href="intro.html#basic-probability-calculations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>If we have a joint model on hand, that automatically specifies the marginal distributions, <span class="math inline">\(f_X(x), f_Y(y) \text { and } f_Z(z)\)</span>, and conditional distributions, for example, <span class="math inline">\(f_{Y \mid X, Z}(y \mid x, z) \quad f_{Y, Z \mid X}(y, z \mid x)\)</span>.</p>
+<div id="probability-models" class="section level3 hasAnchor" number="1.1.1">
+<h3><span class="header-section-number">1.1.1</span> Probability Models<a href="intro.html#probability-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Consider there are three random variables: <span class="math inline">\(X, Y\)</span> and <span class="math inline">\(Z\)</span>. Ultimately we will collect data <span class="math inline">\(\left\{\left(x_i, y_i, z_i\right), i=1, \ldots, n\right\}\)</span> which are observed values of the variables. A probabilistic model for the data comprises a joint density <span class="math inline">\(f_{X,Y,Z} (x,y,z)\)</span>, or a joint mass function for discrete variables, which represents how the data are generated. Notice that in the following calculations we are using density functions for ease of notation, but it shall follows the same rule for discrete or mixed cases. All we need is to substitute the integrals into summation.</p>
+<p>If we have a joint model on hand, that automatically specifies the marginal distributions, <span class="math inline">\(f_X(x), f_Y(y) \text { and } f_Z(z)\)</span>, and conditional distributions, for example, <span class="math inline">\(f_{Y \mid X, Z}(y \mid x, z), \quad f_{Y, Z \mid X}(y, z \mid x)\)</span>.</p>
 <p>The marginal distributions can be obtained via integrating the joing density with respect to other variables. For example, suppose we want to obtain the marginal density for <span class="math inline">\(Y\)</span>, <span class="math inline">\(f_Y(y)\)</span>, the calculation shall be:</p>
 <p><span class="math display">\[
 f_Y(y) = \iint f_{X, Y, Z}(x, y, z) d x d z
 \]</span></p>
 <p>The conditional density can be calculated as a ratio between joint density of the target and the conditions, and the density of the conditions itself. Say we want to calculate the conditional density of <span class="math inline">\(Y\)</span>, given <span class="math inline">\(X=x, Z=z\)</span>, provided that <span class="math inline">\(f_{X,Z}(x,z) &gt; 0\)</span>:</p>
 <p><span class="math display">\[ f_{Y|X,Z}(y) = \frac{f_{X,Y,Z}(x,y,z)}{f_{X,Z}(x,z) } = \frac{f_{X,Y,Z}(x,y,z)}{\int f_{X,Z}(x,t,z) dt}\]</span></p>
-<p>Notice that the joint density can be factorized as a product of conditional densities and a marginal density, and this factorization can be done in any orderings. This is referred to as the chain rule factorization.</p>
+<p>Notice that the joint density can be factorized as a product of conditional densities and a marginal density, and this factorization can be done in any orderings. This is referred to as the chain rule factorization. For example, the joint density can be factorized into these two equivalent products:</p>
 <p><span class="math display">\[ f_{X, Y, Z}(x, y, z)=f_X(x) f_{Z \mid X}(z \mid x) f_{Y \mid X, Z}(y \mid x, z) \]</span> <span class="math display">\[ f_{X, Y, Z}(x, y, z)=f_Z(z) f_{Y \mid Z}(y \mid z) f_{X \mid Y, Z}(x \mid y, z) \]</span></p>
-<p>Plug it back to the integral obtaining marginal density, we see that there is no unique way of calculating a probability density function:</p>
+<p>Plug it back to the integral obtaining marginal density, we see that there is no unique way of calculating a probability density function, even at the level of marginal density.</p>
 <p><span class="math display">\[ \begin{aligned}
 f_Y(y) &amp; =\iint f_{X, Y, Z}(x, y, z) d x d z \\
 &amp; =\iint f_{Y \mid X, Z}(y \mid x, z) f_{Z \mid X}(z \mid x) f_X(x) d z d x \\
 &amp; \equiv \iint f_{Y \mid X, Z}(y \mid x, z) f_{X \mid Z}(x \mid z) f_Z(z) d x d z
 \end{aligned} \]</span></p>
 </div>
-<div id="expectations" class="section level2 hasAnchor" number="1.2">
-<h2><span class="header-section-number">1.2</span> Expectations<a href="intro.html#expectations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="expectations" class="section level3 hasAnchor" number="1.1.2">
+<h3><span class="header-section-number">1.1.2</span> Expectations<a href="intro.html#expectations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We may calculate expectations under the joint probability model:</p>
 <p><span class="math display">\[ \mathbb{E}_Y[Y] = \int yf_Y(y) dy\]</span> With the use of marginalization technique and chain rule factorization, this calculation can be written in various formats:</p>
 <p><span class="math display">\[ \begin{aligned}
@@ -256,8 +270,8 @@ f_Y(y) &amp; =\iint f_{X, Y, Z}(x, y, z) d x d z \\
 <p>where <span class="math inline">\(V\)</span> is the degenerate random variable with</p>
 <p><span class="math display">\[ f_V(v)= \mathbb{P}[V=v]=\mathbb{I}_{\{z\}}(v) = \begin{cases}1 &amp; V=z \\ 0 &amp; V \neq z\end{cases}\]</span></p>
 </div>
-<div id="independence" class="section level2 hasAnchor" number="1.3">
-<h2><span class="header-section-number">1.3</span> Independence<a href="intro.html#independence" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="independence" class="section level3 hasAnchor" number="1.1.3">
+<h3><span class="header-section-number">1.1.3</span> Independence<a href="intro.html#independence" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Two random variables <span class="math inline">\(X, Z\)</span> are said to be independent, denoted as <span class="math inline">\(X \perp \!\!\! \perp Z\)</span>, if and only if <span class="math inline">\(f_{X, Z}(x, z)=f_X(x) f_Z(z)\)</span>, for all <span class="math inline">\((x, z) \in \mathbb{R}^2\)</span>. Equivalently, we can define independence by conditional densities: <span class="math inline">\(f_{X \mid Z}(x \mid z)=f_X(x) \quad \forall(x, z) \text { s.t. } f_Z(z)&gt;0\)</span>, or <span class="math inline">\(f_{Z \mid X}(z \mid x)=f_Z(z) \quad \forall(x, z) \text { s.t. } f_X(x)&gt;0\)</span>.</p>
 <p>The idea remains the same when it comes to three variables. We say <span class="math inline">\(X,Y,Z\)</span> are independent if <span class="math inline">\(f_{X, Y, Z}(x, y, z)=f_X(x) f_Y(y) f_Z(z) \quad \forall(x, y, z) \in \mathbb{R}^3\)</span>. We can also consider conditional independence structure, denoted as <span class="math inline">\(Y \perp \!\!\! \perp Z \mid X\)</span>, if and only if <span class="math display">\[
 f_{Y, Z \mid X}(y, z \mid x)=f_{Z \mid X}(z \mid x) f_{Y \mid X}(y \mid x)
@@ -273,12 +287,15 @@ g\left(x, v_0\right) &amp; x \in \mathbb{R}, V=v_0 \\
 \]</span></p>
 <p>Hence we could calculate <span class="math inline">\(\mathbb{E}_{Y|Z}[Y|Z=z]\)</span> by the following procedures: first fix <span class="math inline">\(Z=z\)</span> independently of <span class="math inline">\(X\)</span>, then computing for each fixed <span class="math inline">\(x\)</span>, <span class="math inline">\(\mathbb{E}_{Y \mid X, Z}[Y \mid X=x, Z=z]=\mu(x, z)\)</span>. Finally we could averaging <span class="math inline">\(\mu(x, z)\)</span> over the distribution of <span class="math inline">\(f_X(x)\)</span> to obtain <span class="math inline">\(\mathbb{E}[\mu(x, z)]\)</span>, which is our target conditional expectation. The <span class="math inline">\(\mu(x,z)\)</span> could be viewed as a mean model. For example, in a regression context, we could set <span class="math inline">\(\mu(x,z; \beta, \psi) = \mathbb{E}_{Y \mid X, Z}[Y \mid X=x, Z=z]=\beta_0+\beta_1 x+\psi_0 z\)</span>, or <span class="math inline">\(\mu(x,z; \beta, \psi) = \mathbb{E}_{Y \mid X, Z}[Y \mid X=x, Z=z]=\beta_0+\beta_1 x+\psi_0 z+\psi_1 \mathrm{xz}\)</span>, for some parameters <span class="math inline">\(\beta\)</span>, <span class="math inline">\(\psi\)</span>.</p>
 </div>
-<div id="simpsons-paradox-discrete-version" class="section level2 hasAnchor" number="1.4">
-<h2><span class="header-section-number">1.4</span> Simpson’s Paradox: Discrete Version<a href="intro.html#simpsons-paradox-discrete-version" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="simpsons-paradox" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Simpson’s Paradox<a href="intro.html#simpsons-paradox" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="binary-version" class="section level3 hasAnchor" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> Binary Version<a href="intro.html#binary-version" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Suppose we have binary variables <span class="math inline">\(X, Y, Z\)</span> on the support of <span class="math inline">\(\{0,1\}^3\)</span>, and both <span class="math inline">\(\operatorname{Pr}[Z=0]&gt;0 \quad \text { and } \quad \operatorname{Pr}[Z=1]&gt;0\)</span>.</p>
 <p>We have for <span class="math inline">\((y, z) \in\{0,1\}^2\)</span> <span class="math display">\[
 \begin{aligned}
-\operatorname{Pr}[Y=y \mid Z=z] &amp;= \sum_{x=0}^1 \operatorname{Pr}[Y=y \mid X=x, Z=z] \operatorname{Pr}[X=x \mid Z=z] \\ &amp;= \operatorname{Pr}[Y=y \mid X=0, Z=z] \operatorname{Pr}[X=0 \mid Z=z] +\operatorname{Pr}[Y=y \mid X=1, Z=z] \operatorname{Pr}[X=1 \mid Z=z] \end{aligned} \]</span></p>
+\operatorname{Pr}[Y=y \mid Z=z] &amp;= \sum_{x=0}^1 \operatorname{Pr}[Y=y \mid X=x, Z=z] \operatorname{Pr}[X=x \mid Z=z] \\ &amp;= \operatorname{Pr}[Y=y \mid X=0, Z=z] \operatorname{Pr}[X=0 \mid Z=z] \\ &amp;+\operatorname{Pr}[Y=y \mid X=1, Z=z] \operatorname{Pr}[X=1 \mid Z=z] \end{aligned} \]</span></p>
 <p>Notice that in general, this does not equal to</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -289,69 +306,69 @@ g\left(x, v_0\right) &amp; x \in \mathbb{R}, V=v_0 \\
 <table>
 <thead>
 <tr class="header">
-<th>X=0</th>
-<th>Y=0</th>
-<th>Y=1</th>
+<th align="center">X=0</th>
+<th align="center">Y=0</th>
+<th align="center">Y=1</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Z=0</td>
-<td>36</td>
-<td>234</td>
+<td align="center">Z=0</td>
+<td align="center">36</td>
+<td align="center">234</td>
 </tr>
 <tr class="even">
-<td>Z=1</td>
-<td>6</td>
-<td>81</td>
+<td align="center">Z=1</td>
+<td align="center">6</td>
+<td align="center">81</td>
 </tr>
 </tbody>
 </table>
 <table>
 <thead>
 <tr class="header">
-<th>X=1</th>
-<th>Y=0</th>
-<th>Y=1</th>
+<th align="center">X=1</th>
+<th align="center">Y=0</th>
+<th align="center">Y=1</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Z=0</td>
-<td>25</td>
-<td>55</td>
+<td align="center">Z=0</td>
+<td align="center">25</td>
+<td align="center">55</td>
 </tr>
 <tr class="even">
-<td>Z=1</td>
-<td>71</td>
-<td>192</td>
+<td align="center">Z=1</td>
+<td align="center">71</td>
+<td align="center">192</td>
 </tr>
 </tbody>
 </table>
 <p>We can estimate the cure rates in two treatment groups:</p>
 <table>
 <colgroup>
-<col width="20%" />
+<col width="21%" />
 <col width="39%" />
 <col width="39%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th>Cure Rate</th>
-<th>Z=0</th>
-<th>Z=1</th>
+<th align="center">Cure Rate</th>
+<th align="center">Z=0</th>
+<th align="center">Z=1</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Group 0 (X=0)</td>
-<td><span class="math inline">\(\frac{234}{234+36} = 0.87\)</span></td>
-<td><span class="math inline">\(\frac{81}{81+6} = 0.93\)</span></td>
+<td align="center">Group 0 (X=0)</td>
+<td align="center"><span class="math inline">\(\frac{234}{234+36} = 0.87\)</span></td>
+<td align="center"><span class="math inline">\(\frac{81}{81+6} = 0.93\)</span></td>
 </tr>
 <tr class="even">
-<td>Group 1 (X=1)</td>
-<td><span class="math inline">\(\frac{55}{55+25} = 0.69\)</span></td>
-<td><span class="math inline">\(\frac{192}{192+71} = 0.73\)</span></td>
+<td align="center">Group 1 (X=1)</td>
+<td align="center"><span class="math inline">\(\frac{55}{55+25} = 0.69\)</span></td>
+<td align="center"><span class="math inline">\(\frac{192}{192+71} = 0.73\)</span></td>
 </tr>
 </tbody>
 </table>
@@ -360,25 +377,25 @@ g\left(x, v_0\right) &amp; x \in \mathbb{R}, V=v_0 \\
 <table>
 <thead>
 <tr class="header">
-<th></th>
-<th>Y=0</th>
-<th>Y=1</th>
+<th align="center"></th>
+<th align="center">Y=0</th>
+<th align="center">Y=1</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Z=0</td>
-<td>61</td>
-<td>289</td>
+<td align="center">Z=0</td>
+<td align="center">61</td>
+<td align="center">289</td>
 </tr>
 <tr class="even">
-<td>Z=1</td>
-<td>77</td>
-<td>273</td>
+<td align="center">Z=1</td>
+<td align="center">77</td>
+<td align="center">273</td>
 </tr>
 </tbody>
 </table>
-<p>with cure rate for treatment A being <span class="math inline">\(\frac{289}{289+61} = 0.83\)</span> and cure rate for treatment B being <span class="math inline">\(\frac{273}{273+77} = 0.78\)</span>. That is, in pooled data, treatment A beats from treatment A, which contradicts the conclusion we have when we analyze the data under patients groups separately. This is referred to as the Simpson’s paradox.</p>
+<p>with cure rate for treatment A being <span class="math inline">\(\frac{289}{289+61} = 0.83\)</span> and cure rate for treatment B being <span class="math inline">\(\frac{273}{273+77} = 0.78\)</span>. That is, in pooled data, treatment A beats treatment B, which contradicts the conclusion we have when we analyze the data under patients groups separately. This is referred to as the Simpson’s paradox.</p>
 <p>The reason behind is that</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -403,8 +420,8 @@ w_1 = \widehat{\operatorname{Pr}}[X=1 \mid Z=1]=\frac{263}{263+87} = 0.75
 \operatorname{Pr}[Y=1 \mid Z=1] \quad \text { vs } \quad \operatorname{Pr}[Y=1 \mid Z=0]
 \]</span></p>
 </div>
-<div id="simpsons-paradox-continuous-version" class="section level2 hasAnchor" number="1.5">
-<h2><span class="header-section-number">1.5</span> Simpson’s Paradox: Continuous Version<a href="intro.html#simpsons-paradox-continuous-version" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="continuous-version" class="section level3 hasAnchor" number="1.2.2">
+<h3><span class="header-section-number">1.2.2</span> Continuous Version<a href="intro.html#continuous-version" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The Simpson’s paradox is not limited to discrete random variables, as it could be extended to continuous random variables as well. Suppose we have <span class="math inline">\((X,Y,Z)\)</span> following a joint normal distribution:</p>
 <p><span class="math display">\[
 \left(\begin{array}{l}
@@ -413,7 +430,7 @@ Y \\
 Z
 \end{array}\right) \sim \operatorname{Normal}_3(\mu, \Sigma)
 \]</span></p>
-<p>Then we could construct <span class="math inline">\(\{ (x_i,y_i,z_i \}\)</span> as follows: we construct marginal density for <span class="math inline">\(X:= \sim \operatorname{Normal}\left(\mu_X, \sigma_X^2\right)\)</span>. Then we could construct <span class="math inline">\((Y, Z)\)</span> conditional on <span class="math inline">\(X=X\)</span> :</p>
+<p>We could generate <span class="math inline">\(\{ (x_i,y_i,z_i) \}\)</span> as follows: we first construct marginal density for <span class="math inline">\(X:= \sim \operatorname{Normal}\left(\mu_X, \sigma_X^2\right)\)</span>. Then we could construct <span class="math inline">\((Y, Z)\)</span> conditional on <span class="math inline">\(X=x\)</span> :</p>
 <p><span class="math display">\[
 (Y, Z) \mid X=\mathrm{x} \sim \operatorname{Normal}_2\left(\left(\begin{array}{l}
 x \\
@@ -471,7 +488,7 @@ Z
 <p>Comparing the data-generating mechanism and the probability model derived above, we can obtain the following parameters for our joint probability model: <span class="math inline">\(\sigma_{X Y}=\sigma_{X Z}=\sigma_X^2\)</span>, <span class="math inline">\(\sigma_Y^2 =1+\frac{\sigma_{X Y}^2}{\sigma_X^2}=1+\sigma_X^2\)</span>, <span class="math inline">\(\sigma_Z^2 =1+\sigma_X^2\)</span>, <span class="math inline">\(\sigma_{Y Z} =\rho+\frac{\sigma_{X Y} \sigma_{X Z}}{\sigma_X^2}=\rho+\sigma_X^2\)</span></p>
 <p>Therefore, we could have the conditional probability of <span class="math inline">\(Y|X=x, Z=z\)</span>, as this can be directly derived from <span class="math inline">\(Y,Z|X=x\)</span> using conditional probability calculation formulated above.</p>
 <p><span class="math display">\[ Y \mid X=x, Z=z \sim \operatorname{Normal}\left(\mathrm{x}+\rho(z-x),\left(1-\rho^2\right)\right) \]</span> thus we have</p>
-<p><span class="math display">\[ \mathbb{E}[Y \mid X=x, Z=z]=x+\rho(z-x)=\rho z+(1-\rho) x \]</span></p>
+<p><span class="math display">\[ \mathbb{E}_{Y|X,Z}[Y \mid X=x, Z=z]=x+\rho(z-x)=\rho z+(1-\rho) x \]</span></p>
 <p>that is, the conditional expectation of <span class="math inline">\(Y\)</span> given <span class="math inline">\(X=x, Z=z\)</span>, is a linear combination of <span class="math inline">\(z\)</span> and <span class="math inline">\(x\)</span> with respect to weights <span class="math inline">\(\rho\)</span> and <span class="math inline">\(1-\rho\)</span>. This mean model is unchanged irrespective of any assumption about the <span class="math inline">\((X,Z)\)</span> distribution.</p>
 <p>Also we have</p>
 <p><span class="math display">\[
@@ -498,44 +515,43 @@ f_{X \mid Z}(x \mid z) &amp; \propto f_{Z \mid X}(z \mid x) f_X(x) \\
 &amp; =\frac{(1-\rho) \mu_X}{\sigma_X^2+1}+\left(\rho+(1-\rho) \frac{\sigma_X^2}{\sigma_X^2+1}\right) z
 \end{aligned}
 \]</span></p>
-<p>In this system, <span class="math inline">\(X\)</span> and <span class="math inline">\(Z\)</span> are not independent, as <span class="math inline">\(\sigma_{XZ} = \sigma_X^{2} &gt; 0\)</span>. So the marginal effect of <span class="math inline">\(Y\)</span> of changing <span class="math inline">\(Z\)</span> is measured by the coefficient of <span class="math inline">\(z\)</span> in <span class="math inline">\(\mathbb{E}_{Y \mid Z}[Y \mid Z=z]\)</span>. However, assuming the <span class="math inline">\(X\)</span> and <span class="math inline">\(Z\)</span> being independent, then <span class="math inline">\(\mathbb{E}_{Y \mid Z}[Y \mid Z=z]\)</span> can be calculated by <span class="math inline">\(\mathbb{E}_{Y \mid X, Z}[Y \mid X=x, Z=z]\)</span>, and marginal effect of <span class="math inline">\(Y\)</span> under changing <span class="math inline">\(Z\)</span> should be the measured by the coefficient <span class="math inline">\(\rho\)</span>.</p>
-<p><span class="math display">\[
-\rho+(1-\rho) \frac{\sigma_X^2}{\sigma_X^2+1}
-\]</span></p>
+<p>In this system, <span class="math inline">\(X\)</span> and <span class="math inline">\(Z\)</span> are not independent, as <span class="math inline">\(\sigma_{XZ} = \sigma_X^{2} &gt; 0\)</span>. So the marginal effect of <span class="math inline">\(Y\)</span> of changing <span class="math inline">\(Z\)</span> is measured by the coefficient of <span class="math inline">\(z\)</span> in <span class="math inline">\(\mathbb{E}_{Y \mid Z}[Y \mid Z=z]\)</span>,</p>
+<p><span class="math display">\[ \rho+(1-\rho) \frac{\sigma_X^2}{\sigma_X^2+1} \]</span></p>
+<p>However, assuming the <span class="math inline">\(X\)</span> and <span class="math inline">\(Z\)</span> being independent, then <span class="math inline">\(\mathbb{E}_{Y \mid Z}[Y \mid Z=z]\)</span> can be calculated by <span class="math inline">\(\mathbb{E}_{Y \mid X, Z}[Y \mid X=x, Z=z]\)</span>, and marginal effect of <span class="math inline">\(Y\)</span> under changing <span class="math inline">\(Z\)</span> should be the measured by the coefficient <span class="math inline">\(\rho\)</span>.</p>
 <p>We could simulate a dataset with 10,000 data, according to our specified probability models. Plotting the marginal scatterplot between <span class="math inline">\(Y\)</span> and <span class="math inline">\(Z\)</span>, we could see that marginally speaking, <span class="math inline">\(Y\)</span> and <span class="math inline">\(Z\)</span> are positively correlated.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="intro.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS) </span>
-<span id="cb2-2"><a href="intro.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2111</span>) </span>
-<span id="cb2-3"><a href="intro.html#cb2-3" aria-hidden="true" tabindex="-1"></a>n<span class="ot">&lt;-</span><span class="dv">10000</span> <span class="co">#sample size</span></span>
-<span id="cb2-4"><a href="intro.html#cb2-4" aria-hidden="true" tabindex="-1"></a>X<span class="ot">&lt;-</span><span class="fu">rnorm</span>(n,<span class="dv">10</span>,<span class="dv">5</span>)<span class="co"># Generate X</span></span>
-<span id="cb2-5"><a href="intro.html#cb2-5" aria-hidden="true" tabindex="-1"></a>Sig.YZ<span class="ot">&lt;-</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="sc">-</span><span class="fl">0.9</span>,<span class="sc">-</span><span class="fl">0.9</span>,<span class="dv">1</span>),<span class="dv">2</span>,<span class="dv">2</span>) </span>
-<span id="cb2-6"><a href="intro.html#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># variance covariance matrix for (Y,Z) conditional distribution </span></span>
-<span id="cb2-7"><a href="intro.html#cb2-7" aria-hidden="true" tabindex="-1"></a>YZ<span class="ot">&lt;-</span><span class="fu">mvrnorm</span>(n,<span class="at">mu=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),<span class="at">Sigma=</span>Sig.YZ) <span class="co">#Generate the Y,Z variables </span></span>
-<span id="cb2-8"><a href="intro.html#cb2-8" aria-hidden="true" tabindex="-1"></a>Y<span class="ot">&lt;-</span>X<span class="sc">+</span>YZ[,<span class="dv">1</span>]</span>
-<span id="cb2-9"><a href="intro.html#cb2-9" aria-hidden="true" tabindex="-1"></a>Z<span class="ot">&lt;-</span>X<span class="sc">+</span>YZ[,<span class="dv">2</span>] <span class="co">#Change the mean according to X </span></span>
-<span id="cb2-10"><a href="intro.html#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">0</span>),<span class="at">pty=</span><span class="st">&#39;s&#39;</span>)<span class="co">#Set up the plotting margins </span></span>
-<span id="cb2-11"><a href="intro.html#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Z,Y,<span class="at">pch=</span><span class="dv">19</span>,<span class="at">cex=</span><span class="fl">0.8</span>)</span></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="intro.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS) </span>
+<span id="cb1-2"><a href="intro.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2111</span>) </span>
+<span id="cb1-3"><a href="intro.html#cb1-3" aria-hidden="true" tabindex="-1"></a>n<span class="ot">&lt;-</span><span class="dv">10000</span> <span class="co">#sample size</span></span>
+<span id="cb1-4"><a href="intro.html#cb1-4" aria-hidden="true" tabindex="-1"></a>X<span class="ot">&lt;-</span><span class="fu">rnorm</span>(n,<span class="dv">10</span>,<span class="dv">5</span>)<span class="co"># Generate X</span></span>
+<span id="cb1-5"><a href="intro.html#cb1-5" aria-hidden="true" tabindex="-1"></a>Sig.YZ<span class="ot">&lt;-</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="sc">-</span><span class="fl">0.9</span>,<span class="sc">-</span><span class="fl">0.9</span>,<span class="dv">1</span>),<span class="dv">2</span>,<span class="dv">2</span>) </span>
+<span id="cb1-6"><a href="intro.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># variance covariance matrix for (Y,Z) conditional distribution </span></span>
+<span id="cb1-7"><a href="intro.html#cb1-7" aria-hidden="true" tabindex="-1"></a>YZ<span class="ot">&lt;-</span><span class="fu">mvrnorm</span>(n,<span class="at">mu=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),<span class="at">Sigma=</span>Sig.YZ) <span class="co">#Generate the Y,Z variables </span></span>
+<span id="cb1-8"><a href="intro.html#cb1-8" aria-hidden="true" tabindex="-1"></a>Y<span class="ot">&lt;-</span>X<span class="sc">+</span>YZ[,<span class="dv">1</span>]</span>
+<span id="cb1-9"><a href="intro.html#cb1-9" aria-hidden="true" tabindex="-1"></a>Z<span class="ot">&lt;-</span>X<span class="sc">+</span>YZ[,<span class="dv">2</span>] <span class="co">#Change the mean according to X </span></span>
+<span id="cb1-10"><a href="intro.html#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">0</span>),<span class="at">pty=</span><span class="st">&#39;s&#39;</span>)<span class="co">#Set up the plotting margins </span></span>
+<span id="cb1-11"><a href="intro.html#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Z,Y,<span class="at">pch=</span><span class="dv">19</span>,<span class="at">cex=</span><span class="fl">0.8</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 <p>However, condition on <span class="math inline">\(X\)</span> being restricted to neighbouring values of 5, 10, 15, respectively, <span class="math inline">\(Y\)</span> and <span class="math inline">\(Z\)</span> are negatively correlated.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="intro.html#cb3-1" aria-hidden="true" tabindex="-1"></a>Y1<span class="ot">&lt;-</span>Y[X<span class="sc">&gt;</span><span class="fl">4.8</span><span class="sc">&amp;</span>X<span class="sc">&lt;</span><span class="fl">5.2</span>];Z1<span class="ot">&lt;-</span>Z[X<span class="sc">&gt;</span><span class="fl">4.8</span><span class="sc">&amp;</span>X<span class="sc">&lt;</span><span class="fl">5.2</span>];<span class="co">#Firstsubsetanalysis </span></span>
-<span id="cb3-2"><a href="intro.html#cb3-2" aria-hidden="true" tabindex="-1"></a>Y2<span class="ot">&lt;-</span>Y[X<span class="sc">&gt;</span><span class="fl">9.8</span><span class="sc">&amp;</span>X<span class="sc">&lt;</span><span class="fl">10.2</span>];Z2<span class="ot">&lt;-</span>Z[X<span class="sc">&gt;</span><span class="fl">9.8</span><span class="sc">&amp;</span>X<span class="sc">&lt;</span><span class="fl">10.2</span>];<span class="co">#Secondsubsetanalysis </span></span>
-<span id="cb3-3"><a href="intro.html#cb3-3" aria-hidden="true" tabindex="-1"></a>Y3<span class="ot">&lt;-</span>Y[X<span class="sc">&gt;</span><span class="fl">14.8</span><span class="sc">&amp;</span>X<span class="sc">&lt;</span><span class="fl">15.2</span>];Z3<span class="ot">&lt;-</span>Z[X<span class="sc">&gt;</span><span class="fl">14.8</span><span class="sc">&amp;</span>X<span class="sc">&lt;</span><span class="fl">15.2</span>];<span class="co">#Thirdsubsetanalysis </span></span>
-<span id="cb3-4"><a href="intro.html#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">0</span>),<span class="at">pty=</span><span class="st">&#39;s&#39;</span>,<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))<span class="co">#Setuptheplottingmargins </span></span>
-<span id="cb3-5"><a href="intro.html#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Z1,Y1,<span class="at">pch=</span><span class="dv">19</span>,<span class="at">cex=</span><span class="fl">0.8</span>, <span class="at">main=</span><span class="st">&quot;X=5&quot;</span>)</span>
-<span id="cb3-6"><a href="intro.html#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Z2,Y2,<span class="at">pch=</span><span class="dv">19</span>,<span class="at">cex=</span><span class="fl">0.8</span>, <span class="at">main=</span><span class="st">&quot;X=10&quot;</span>)</span>
-<span id="cb3-7"><a href="intro.html#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Z3,Y3,<span class="at">pch=</span><span class="dv">19</span>,<span class="at">cex=</span><span class="fl">0.8</span>, <span class="at">main=</span><span class="st">&quot;X=15&quot;</span>)</span></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="intro.html#cb2-1" aria-hidden="true" tabindex="-1"></a>Y1<span class="ot">&lt;-</span>Y[X<span class="sc">&gt;</span><span class="fl">4.8</span><span class="sc">&amp;</span>X<span class="sc">&lt;</span><span class="fl">5.2</span>];Z1<span class="ot">&lt;-</span>Z[X<span class="sc">&gt;</span><span class="fl">4.8</span><span class="sc">&amp;</span>X<span class="sc">&lt;</span><span class="fl">5.2</span>];<span class="co">#Firstsubsetanalysis </span></span>
+<span id="cb2-2"><a href="intro.html#cb2-2" aria-hidden="true" tabindex="-1"></a>Y2<span class="ot">&lt;-</span>Y[X<span class="sc">&gt;</span><span class="fl">9.8</span><span class="sc">&amp;</span>X<span class="sc">&lt;</span><span class="fl">10.2</span>];Z2<span class="ot">&lt;-</span>Z[X<span class="sc">&gt;</span><span class="fl">9.8</span><span class="sc">&amp;</span>X<span class="sc">&lt;</span><span class="fl">10.2</span>];<span class="co">#Secondsubsetanalysis </span></span>
+<span id="cb2-3"><a href="intro.html#cb2-3" aria-hidden="true" tabindex="-1"></a>Y3<span class="ot">&lt;-</span>Y[X<span class="sc">&gt;</span><span class="fl">14.8</span><span class="sc">&amp;</span>X<span class="sc">&lt;</span><span class="fl">15.2</span>];Z3<span class="ot">&lt;-</span>Z[X<span class="sc">&gt;</span><span class="fl">14.8</span><span class="sc">&amp;</span>X<span class="sc">&lt;</span><span class="fl">15.2</span>];<span class="co">#Thirdsubsetanalysis </span></span>
+<span id="cb2-4"><a href="intro.html#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">0</span>),<span class="at">pty=</span><span class="st">&#39;s&#39;</span>,<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))<span class="co">#Setuptheplottingmargins </span></span>
+<span id="cb2-5"><a href="intro.html#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Z1,Y1,<span class="at">pch=</span><span class="dv">19</span>,<span class="at">cex=</span><span class="fl">0.8</span>, <span class="at">main=</span><span class="st">&quot;X=5&quot;</span>)</span>
+<span id="cb2-6"><a href="intro.html#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Z2,Y2,<span class="at">pch=</span><span class="dv">19</span>,<span class="at">cex=</span><span class="fl">0.8</span>, <span class="at">main=</span><span class="st">&quot;X=10&quot;</span>)</span>
+<span id="cb2-7"><a href="intro.html#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Z3,Y3,<span class="at">pch=</span><span class="dv">19</span>,<span class="at">cex=</span><span class="fl">0.8</span>, <span class="at">main=</span><span class="st">&quot;X=15&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p>We could also calculate <span class="math inline">\(\mathbb{E}_{Y|Z,X}[Y|Z=z, X=5]\)</span>, <span class="math inline">\(\mathbb{E}_{Y|Z,X}[Y|Z=z, X=10]\)</span>, <span class="math inline">\(\mathbb{E}_{Y|Z,X}[Y|Z=z, X=15]\)</span>, and <span class="math inline">\(\mathbb{E}_{Y|Z}[Y|Z=z]\)</span> to verify our calculation result.</p>
 <p>We had previously showed that, conditional on <span class="math inline">\(X=x\)</span> and <span class="math inline">\(Z=z\)</span>,</p>
 <p><span class="math display">\[ \mathbb{E}[Y|X=x, Z=z] = \rho z + (1-\rho)x = -0.9z + 1.9x\]</span> Hence in the fitted regression model under data conditioned on <span class="math inline">\(X=x\)</span>, the intercept shall be <span class="math inline">\(1.9x\)</span> and the slope shall be -0.9, which fits our fitted linear regression model.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="intro.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">summary</span>(<span class="fu">lm</span>(Y1<span class="sc">~</span>Z1)))</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="intro.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">summary</span>(<span class="fu">lm</span>(Y1<span class="sc">~</span>Z1)))</span></code></pre></div>
 <pre><code>##               Estimate Std. Error   t value      Pr(&gt;|t|)
 ## (Intercept)  9.4574859 0.17528623  53.95453 1.444312e-119
 ## Z1          -0.8788471 0.03460964 -25.39313  6.805696e-64</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="intro.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">summary</span>(<span class="fu">lm</span>(Y2<span class="sc">~</span>Z2)))</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="intro.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">summary</span>(<span class="fu">lm</span>(Y2<span class="sc">~</span>Z2)))</span></code></pre></div>
 <pre><code>##               Estimate Std. Error   t value      Pr(&gt;|t|)
 ## (Intercept) 19.0485792 0.27067056  70.37551 4.282111e-193
 ## Z2          -0.9082673 0.02685246 -33.82436 3.177163e-106</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="intro.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">summary</span>(<span class="fu">lm</span>(Y3<span class="sc">~</span>Z3)))</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="intro.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">summary</span>(<span class="fu">lm</span>(Y3<span class="sc">~</span>Z3)))</span></code></pre></div>
 <pre><code>##               Estimate Std. Error   t value      Pr(&gt;|t|)
 ## (Intercept) 28.7386850 0.57413972  50.05521 9.408283e-112
 ## Z3          -0.9170635 0.03791339 -24.18838  4.722858e-60</code></pre>
@@ -544,21 +560,196 @@ f_{X \mid Z}(x \mid z) &amp; \propto f_{Z \mid X}(z \mid x) f_X(x) \\
 \mathbb{E}_{Y \mid Z}[Y \mid Z=z] =\frac{(1-\rho) \mu_X}{\sigma_X^2+1}+\left(\rho+(1-\rho) \frac{\sigma_X^2}{\sigma_X^2+1}\right) z
 \]</span></p>
 <p>Therefore with <span class="math inline">\(\mu_x=10\)</span>, <span class="math inline">\(\sigma_X^{2}=25\)</span>, <span class="math inline">\(\rho=-0.9\)</span>, the fitted regression coefficients should be somewhere close to 0.92 for the slope, and 0.73 for the slope. Combined together, we could see that separately speaking conditioned on whatever <span class="math inline">\(X=x\)</span>, an increase in <span class="math inline">\(z\)</span> could have an decreasing effect on <span class="math inline">\(Y\)</span>, but the marginal effect of increasing <span class="math inline">\(z\)</span> shall decrease the expected outcome of <span class="math inline">\(Y\)</span>.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="intro.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">summary</span>(<span class="fu">lm</span>(Y<span class="sc">~</span>Z)))<span class="co">#Pooledregression</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="intro.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(<span class="fu">summary</span>(<span class="fu">lm</span>(Y<span class="sc">~</span>Z)))<span class="co">#Pooledregression</span></span></code></pre></div>
 <pre><code>##             Estimate  Std. Error  t value     Pr(&gt;|t|)
 ## (Intercept) 0.738979 0.042213372  17.5058 1.311992e-67
 ## Z           0.925472 0.003743085 247.2485 0.000000e+00</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="intro.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">0</span>),<span class="at">pty=</span><span class="st">&#39;s&#39;</span>) </span>
-<span id="cb12-2"><a href="intro.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Z,Y,<span class="at">type=</span><span class="st">&#39;n&#39;</span>) </span>
-<span id="cb12-3"><a href="intro.html#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(Z1,Y1,<span class="at">pch=</span><span class="dv">19</span>,<span class="at">cex=</span><span class="fl">0.8</span>,<span class="at">col=</span><span class="st">&#39;red&#39;</span>)</span>
-<span id="cb12-4"><a href="intro.html#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(Z2,Y2,<span class="at">pch=</span><span class="dv">19</span>,<span class="at">cex=</span><span class="fl">0.8</span>,<span class="at">col=</span><span class="st">&#39;blue&#39;</span>) </span>
-<span id="cb12-5"><a href="intro.html#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(Z3,Y3,<span class="at">pch=</span><span class="dv">19</span>,<span class="at">cex=</span><span class="fl">0.8</span>,<span class="at">col=</span><span class="st">&#39;green&#39;</span>) </span>
-<span id="cb12-6"><a href="intro.html#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(Y<span class="sc">~</span>Z),<span class="at">lty=</span><span class="dv">2</span>) </span>
-<span id="cb12-7"><a href="intro.html#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(Y1<span class="sc">~</span>Z1),<span class="at">col=</span><span class="st">&#39;red&#39;</span>) </span>
-<span id="cb12-8"><a href="intro.html#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(Y2<span class="sc">~</span>Z2),<span class="at">col=</span><span class="st">&#39;blue&#39;</span>) </span>
-<span id="cb12-9"><a href="intro.html#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(Y3<span class="sc">~</span>Z3),<span class="at">col=</span><span class="st">&#39;green&#39;</span>) </span>
-<span id="cb12-10"><a href="intro.html#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="dv">10</span>,<span class="fu">max</span>(Y),<span class="fu">c</span>(<span class="st">&#39;Group0&#39;</span>,<span class="st">&#39;Group1&#39;</span>,<span class="st">&#39;Group2&#39;</span>,<span class="st">&#39;Pooled&#39;</span>), <span class="at">col=</span><span class="fu">c</span>(<span class="st">&#39;red&#39;</span>,<span class="st">&#39;blue&#39;</span>,<span class="st">&#39;green&#39;</span>,<span class="st">&#39;black&#39;</span>),<span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>))</span></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="intro.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">0</span>),<span class="at">pty=</span><span class="st">&#39;s&#39;</span>) </span>
+<span id="cb11-2"><a href="intro.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Z,Y,<span class="at">type=</span><span class="st">&#39;n&#39;</span>) </span>
+<span id="cb11-3"><a href="intro.html#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(Z1,Y1,<span class="at">pch=</span><span class="dv">19</span>,<span class="at">cex=</span><span class="fl">0.8</span>,<span class="at">col=</span><span class="st">&#39;red&#39;</span>)</span>
+<span id="cb11-4"><a href="intro.html#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(Z2,Y2,<span class="at">pch=</span><span class="dv">19</span>,<span class="at">cex=</span><span class="fl">0.8</span>,<span class="at">col=</span><span class="st">&#39;blue&#39;</span>) </span>
+<span id="cb11-5"><a href="intro.html#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(Z3,Y3,<span class="at">pch=</span><span class="dv">19</span>,<span class="at">cex=</span><span class="fl">0.8</span>,<span class="at">col=</span><span class="st">&#39;green&#39;</span>) </span>
+<span id="cb11-6"><a href="intro.html#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(Y<span class="sc">~</span>Z),<span class="at">lty=</span><span class="dv">2</span>) </span>
+<span id="cb11-7"><a href="intro.html#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(Y1<span class="sc">~</span>Z1),<span class="at">col=</span><span class="st">&#39;red&#39;</span>) </span>
+<span id="cb11-8"><a href="intro.html#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(Y2<span class="sc">~</span>Z2),<span class="at">col=</span><span class="st">&#39;blue&#39;</span>) </span>
+<span id="cb11-9"><a href="intro.html#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(Y3<span class="sc">~</span>Z3),<span class="at">col=</span><span class="st">&#39;green&#39;</span>) </span>
+<span id="cb11-10"><a href="intro.html#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="dv">10</span>,<span class="fu">max</span>(Y),<span class="fu">c</span>(<span class="st">&#39;Group0&#39;</span>,<span class="st">&#39;Group1&#39;</span>,<span class="st">&#39;Group2&#39;</span>,<span class="st">&#39;Pooled&#39;</span>), <span class="at">col=</span><span class="fu">c</span>(<span class="st">&#39;red&#39;</span>,<span class="st">&#39;blue&#39;</span>,<span class="st">&#39;green&#39;</span>,<span class="st">&#39;black&#39;</span>),<span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>))</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+</div>
+<div id="regression-models" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Regression Models<a href="intro.html#regression-models" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We briefly review the notations and basic methods in regression models. We start with the case of having one data instance. Let <span class="math inline">\(Y\)</span> be scalar, <span class="math inline">\(\mathbf{x}\)</span> is the vector with dimension <span class="math inline">\(1 \times p\)</span>, and <span class="math inline">\(\beta\)</span> is of dimension <span class="math inline">\(p \times 1\)</span>. Often we model using a linear combination <span class="math inline">\(\mathbb{E}[Y \mid \mathbf{x}]=g(\mathbf{x} \beta)\)</span>for some function <span class="math inline">\(g\)</span> , and assume <span class="math inline">\(\operatorname{Var}[Y \mid \mathbf{x}]=V(\mathbf{x})\)</span> for some non-negative function <span class="math inline">\(V\)</span>. In most common situations with continuous <span class="math inline">\(Y\)</span>, <span class="math inline">\(\mathbb{E}[Y \mid \mathbf{x}]=\mathbf{x} \beta\)</span>, and <span class="math inline">\(\operatorname{Var}[Y \mid \mathbf{x}]=\sigma^2\)</span>.</p>
+<p>This framework can be easily extended to data with multiple data instances. For a data set of size <span class="math inline">\(n\)</span> comprising outcome data <span class="math inline">\(\mathbf{y}=\left(y_1, \ldots, y_n\right)^{\top}\)</span> and predictor data <span class="math inline">\(\mathbf{X}\)</span>, an <span class="math inline">\(n \times p\)</span> matrix <span class="math display">\[
+\mathbf{X}=\left[\begin{array}{c}
+\mathbf{x}_1 \\
+\vdots \\
+\mathbf{x}_n
+\end{array}\right]
+\]</span> we assume <span class="math display">\[
+\mathbb{E}[\mathbf{Y} \mid \mathbf{X}]=\mathbf{X} \beta \quad \operatorname{Var}[\mathbf{Y} \mid \mathbf{X}]=\sigma^2 \mathbf{I}_n
+\]</span> This is equivalent to the model <span class="math display">\[
+\mathbf{Y}=\mathbf{X} \beta+\varepsilon
+\]</span> where <span class="math inline">\(\varepsilon\)</span> is an <span class="math inline">\((n \times 1)\)</span> vector of random variables with
+<span class="math display">\[
+\mathbb{E}[\varepsilon \mid \mathbf{X}]=\mathbf{0}_n \quad \operatorname{Var}[\varepsilon \mid \mathbf{X}] \equiv \mathbb{E}\left[\varepsilon \varepsilon^{\top} \mid \mathbf{X}\right]=\sigma^2 \mathbf{I}_n
+\]</span></p>
+<p>The inference procedure for regression models can be done either by treating <span class="math inline">\(X\)</span> as fixed or random quantities. If we take <span class="math inline">\(X\)</span> as fixed, then estimating <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\sigma^{2}\)</span> could be done by minimizing ordinary least squares(OLS), under the parameters on the support:</p>
+<p><span class="math display">\[
+\widehat{\beta}=\arg \min _\beta(\mathbf{y}-\mathbf{X} \beta)^{\top}(\mathbf{y}-\mathbf{X} \beta)
+\]</span></p>
+<p>that is, <span class="math inline">\(\widehat{\beta}\)</span> solves <span class="math display">\[
+\mathbf{X}^{\top}(\mathbf{y}-\mathbf{X} \beta) = \sum_{i=1}^n \mathbf{x}_i^{\top}\left(y_i-\mathbf{x}_i \beta\right)= \mathbf{0}_p
+\]</span></p>
+<p>so that <span class="math display">\[
+\widehat{\beta}=\left(\mathbf{X}^{\top} \mathbf{X}\right)^{-1} \mathbf{X}^{\top} \mathbf{y}
+\]</span></p>
+<p>and we could obtain <span class="math inline">\(\widehat{\sigma}^2\)</span> by plugging in obtained <span class="math inline">\(\hat{\beta}\)</span> back to our model:</p>
+<p><span class="math display">\[
+\widehat{\sigma}^2=\frac{1}{n-p}(\mathbf{y}-\mathbf{X} \widehat{\beta})^{\top}(\mathbf{y}-\mathbf{X} \widehat{\beta})
+\]</span></p>
+<p>However, if we consider <span class="math inline">\(X\)</span> as being random, then using the model equation, if we multiply <span class="math inline">\(X^{\top}\)</span> on both sides, we have</p>
+<p><span class="math display">\[
+\mathbf{X}^{\top} \mathbf{Y}=\mathbf{X}^{\top} \mathbf{X} \beta+\mathbf{X}^{\top} \varepsilon
+\]</span></p>
+<p>and taking expectations with respect to the joint distribution</p>
+<p><span class="math display">\[
+\mathbb{E}\left[\mathbf{X}^{\top} \mathbf{Y}\right]=\mathbb{E}\left[\mathbf{X}^{\top} \mathbf{X}\right] \beta+\mathbb{E}\left[\mathbf{X}^{\top} \varepsilon\right] .
+\]</span></p>
+<p>By iterated expectation</p>
+<p><span class="math display">\[
+\mathbb{E}\left[\mathbf{X}^{\top} \varepsilon\right]=\mathbb{E}_{\mathbf{X}}\left[\mathbf{X}^{\top} \mathbb{E}_{\varepsilon \mid \mathbf{X}}[\varepsilon \mid \mathbf{X}]\right]
+\]</span></p>
+<p>Since we have <span class="math inline">\(\mathbb{E}_{\varepsilon \mid \mathbf{X}}[\varepsilon \mid \mathbf{X}]=\mathbf{0}_p\)</span> under our assumption, we can directly conclude <span class="math inline">\(\mathbb{E}\left[\mathbf{X}^{\top} \varepsilon\right]=\mathbf{0}_p\)</span></p>
+<p>Thus <span class="math display">\[
+\mathbb{E}\left[\mathbf{X}^{\top} \mathbf{Y}\right]=\mathbb{E}\left[\mathbf{X}^{\top} \mathbf{X}\right] \beta
+\]</span> and hence <span class="math display">\[\mathbb{E}\left[\mathbf{X}^{\top}(\mathbf{Y}-\mathbf{X} \beta)\right]=\mathbf{0}_p\]</span></p>
+<p>provides a similar result to the OLS estimator.</p>
+<p>Suppose <span class="math inline">\(\mathbb{E}\left[\mathbf{X}^{\top} \mathbf{X}\right]\)</span> is non-singular, we have
+<span class="math display">\[
+\beta=\left\{\mathbb{E}\left[\mathbf{X}^{\top} \mathbf{X}\right]\right\}^{-1} \mathbb{E}\left[\mathbf{X}^{\top} \mathbf{Y}\right] .
+\]</span></p>
+<p>Using the method of moments, we can estimate <span class="math inline">\(\mathbb{E}\left[\mathbf{X}^{\top} \mathbf{X}\right]\)</span> and <span class="math inline">\(\mathbb{E}\left[\mathbf{X}^{\top} \mathbf{Y}\right]\)</span> separately:</p>
+<p><span class="math display">\[
+\left\{\mathbb{E}\left[\mathbf{X}^{\top} \mathbf{X}\right]\right\}^{-1} \text { is estimated by }\left\{\frac{1}{n} \sum_{i=1}^n \mathbf{x}_i^{\top} \mathbf{x}_i\right\}^{-1}
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+\mathbb{E}\left[\mathbf{X}^{\top} \mathbf{Y}\right] \text { is estimated by } \frac{1}{n} \sum_{i=1}^n \mathbf{x}_i^{\top} y_i
+\]</span></p>
+<p>yielding an identical result to OLS. Combined together, we have for <span class="math inline">\(\widehat{\beta}_n=\left(\mathbf{X}^{\top} \mathbf{X}\right)^{-1} \mathbf{X}^{\top} \mathbf{y}\)</span>, the corresponding estimator <span class="math display">\[
+\widehat{\beta}_n=\left(\mathbf{X}^{\top} \mathbf{X}\right)^{-1} \mathbf{X}^{\top} \mathbf{Y}
+\]</span> has good behaviour when sample size <span class="math inline">\(n\)</span> being sufficiently large. Such good behaviours include consistency: as <span class="math inline">\(n \longrightarrow \infty\)</span>,
+<span class="math display">\[
+\widehat{\beta}_n \stackrel{p}{\longrightarrow} \beta_{\mathrm{TRUE}}
+\]</span>
+with <span class="math inline">\(\beta_{\text {ТRUЕ }}\)</span> the true (data generating) value.</p>
+<p>This estimator could also provide asymptotic normality when <span class="math inline">\(n\)</span> being large.
+<span class="math display">\[
+\sqrt{n}\left(\widehat{\beta}_n-\beta_{\text {тRUE }}\right) \stackrel{d}{\longrightarrow} \operatorname{Normal}_p\left(\mathbf{0}_p, \sigma^2 \mathbf{V}\right)
+\]</span>
+where
+<span class="math display">\[
+\mathbf{V}^{-1}=\operatorname{plim}_{n \longrightarrow \infty}\left\{\frac{1}{n} \sum_{i=1}^n \mathbf{x}_i^{\top} \mathbf{x}_i\right\}
+\]</span>
+provided the limit exists and is non-singular.</p>
+<p>We would like to remind that this theory holds assuming correct specification of <span class="math inline">\(\mathbb{E}_{\mathbf{Y} \mid \mathbf{X}}[\mathbf{Y} \mid \mathbf{X}]\)</span>, and <span class="math inline">\(\mathbf{Y}-\mathbf{X} \beta\)</span> is uncorrelated with the columns of <span class="math inline">\(\mathbf{X}\)</span>. However, if the mean model is mis-specified,we do not obtain consistent estimators.</p>
+<p>We conclude this section with an example. We will be revisiting regression models of this type quite often in later parts of this notes.</p>
+<p>Suppose we specify a regression model under the following mean structure
+<span class="math display">\[
+\mathbb{E}_{Y \mid \mathbf{X}}[Y \mid \mathbf{x}]=\beta_0+\beta_1 \mathbf{X}_1+\beta_2 \mathbf{X}_2+z\left(\psi_0+\psi_1 \mathbf{X}_1\right) .
+\]</span>
+so that</p>
+<p><span class="math display">\[
+\mathbf{x}_i=\left[\begin{array}{lllll}
+1 &amp; x_{i 1} &amp; x_{i 2} &amp; z_i &amp; z_i x_{i 1}
+\end{array}\right] .
+\]</span></p>
+<p><span class="math inline">\(z_i\)</span> is the binary treatment assignment, and other covariates are denoted as <span class="math inline">\(x_{i1}\)</span> and <span class="math inline">\(x_{i2}\)</span>. We group the covariates into two groups: involving or not involving <span class="math inline">\(z\)</span>. parameters served for covariates involving <span class="math inline">\(z\)</span> will be under the notation <span class="math inline">\(\psi\)</span>, otherwise it is under the notation <span class="math inline">\(\beta\)</span>. Using the above formulae and notations, this leads us to estimate
+<span class="math display">\[
+\widehat{\beta}_n=\left[\begin{array}{lllll}
+\widehat{\beta}_0 &amp; \widehat{\beta}_1 &amp; \widehat{\beta}_2 &amp; \widehat{\psi}_0 &amp; \widehat{\psi}_1
+\end{array}\right]^{\top} .
+\]</span>
+Then we may estimate the expected response for <span class="math inline">\(Z\)</span> set to take the value <span class="math inline">\(z\)</span> as
+<span class="math display">\[
+\frac{1}{n} \sum_{i=1}^n\left(\widehat{\beta}_0+\widehat{\beta}_1 x_{i 1}+\widehat{\beta}_2 x_{i 2}+z\left(\widehat{\psi}_0+\widehat{\psi}_1 x_{i 1}\right)\right) .
+\]</span></p>
+<p>Then, if we compare <span class="math inline">\(z=1\)</span> with <span class="math inline">\(z=0\)</span> we can get the estimated difference under the regression
+<span class="math display">\[
+\hat{\mathbb{E}}\left[Y \mid \mathbf{x}_1, \mathbf{x}_2, 1\right]-\hat{\mathbb{E}}\left[Y \mid \mathbf{x}_1, \mathbf{x}_2, 0\right]=\frac{1}{n} \sum_{i=1}^n\left(\widehat{\psi}_0+\widehat{\psi}_1 \mathbf{x}_{i 1}\right)
+\]</span></p>
+</div>
+<div id="moment-based-estimation-and-sample-averages" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Moment-based estimation and sample averages<a href="intro.html#moment-based-estimation-and-sample-averages" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The idea of moment-based estimation is to estimate expectations using sample averages. The easiest one is the sample mean: <span class="math display">\[
+\bar{X}_n=\frac{1}{n} \sum_{i=1}^n X_i
+\]</span> which is an estimator of
+<span class="math display">\[
+\mu=\mathbb{E}_X[X]=\int x f_X(x) d x
+\]</span></p>
+<p>We could generalize it as <span class="math display">\[
+\frac{1}{n} \sum_{i=1}^n g\left(X_i\right)
+\]</span></p>
+<p>which is an estimator of <span class="math display">\[
+\mathbb{E}_X[g(X)]=\int g(x) f_X(x) d x
+\]</span></p>
+<p>The integral above can also be approximated by the empirical calculation:</p>
+<p><span class="math display">\[
+\int g(x) f(x) d x \approx \int g(x) \widehat{f}_n(x) d x
+\]</span></p>
+<p>where <span class="math display">\[
+\widehat{f}_n(x)=\frac{1}{n} \sum_{i=1}^n \mathbb{I}_{\left\{x_i\right\}}(x)
+\]</span> We can think of this as a type of Monte Carlo calculation. Monte Carlo calculation is reliant on the fact that as <span class="math inline">\(n \longrightarrow \infty\)</span>, we have certain types of convergence:</p>
+<p> Suppose <span class="math inline">\(X_1, \ldots, X_n, \ldots\)</span> are iid random variables. Then, usually,
+<span class="math display">\[
+\frac{1}{n} \sum_{i=1}^n g\left(X_i\right) \stackrel{p}{\longrightarrow} \mathbb{E}_X[g(X)]
+\]</span>
+Under mild conditions on the joint distribution of random variables <span class="math inline">\(X_1, \ldots, X_n, \ldots\)</span>,
+<span class="math display">\[
+a_n\left(\frac{1}{n} \sum_{i=1}^n g\left(X_i\right)-b_n\right) \stackrel{d}{\longrightarrow} \operatorname{Normal}\left(\mu, \sigma^2\right)
+\]</span>
+for suitable choices of the sequences <span class="math inline">\(\left\{a_n\right\}\)</span> and <span class="math inline">\(\left\{b_n\right\}\)</span>.</p>
+<div id="importance-sampling" class="section level3 hasAnchor" number="1.4.1">
+<h3><span class="header-section-number">1.4.1</span> Importance Sampling<a href="intro.html#importance-sampling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Another way to calculate <span class="math inline">\(\int g(x) f(x) d x\)</span> is to perform importance sampling. This is an alternative integration technique when direct calculations involving <span class="math inline">\(f\)</span> is not feasible. The idea is to introduce a new probability density <span class="math inline">\(f_0\)</span>, and then using identity</p>
+<p><span class="math display">\[ \int g(x) f(x) d x=\int g(x) f(x) \frac{f_0(x)}{f_0(x)} d x=\int \frac{g(x) f(x)}{f_0(x)} f_0(x) d x \]</span> That is,
+<span class="math display">\[
+\mathbb{E}_f[g(X)]=\mathbb{E}_{f_0}\left[\frac{g(X) f(X)}{f_0(X)}\right]
+\]</span></p>
+<p>so that an estimator of the <span class="math inline">\(\int g(x) f(x) d x\)</span> is</p>
+<p><span class="math display">\[
+\widehat{I}_N^{\left(f_0\right)}(g)=\frac{1}{N} \sum_{i=1}^N \frac{g\left(X_i\right) f\left(X_i\right)}{f_0\left(X_i\right)}
+\]</span> where <span class="math inline">\(X_1, \ldots, X_N \sim f_0(\)</span>.<span class="math inline">\()\)</span>, <span class="math inline">\(\widehat{I}_N^{\left(f_0\right)}\)</span> is termed the importance sampling estimator, and <span class="math inline">\(f_0\)</span> is termed the importance sampling density. Please be careful that <span class="math inline">\(f_0\)</span> must be a probability density with support including the support of <span class="math inline">\(f\)</span>. That is, we must choose <span class="math inline">\(f_0\)</span> such that <span class="math inline">\(f_0(x)&gt;0\)</span> whenever <span class="math inline">\(f(x)&gt;0\)</span>.</p>
+<p>The importance sampling method tells us that even if we have an expectation that we need to estimate for distribution <span class="math inline">\(f\)</span>, we can instead use ‘data’ sampled from a different distribution <span class="math inline">\(f_0\)</span>. The advantage of importance sampling is that, by careful choice of <span class="math inline">\(f_0\)</span>, the estimator can have better performance than the Monte Carlo estimator in finite samples.</p>
+<p>The importance sampling calculation could also be viewed as a varied version of the vanilla Monte Carlo calculation with sampling weights being introduced into the summation:</p>
+<p><span class="math display">\[
+\widehat{I}_N^{\left(f_0\right)}(g)=\frac{1}{N} \sum_{i=1}^N \frac{f\left(X_i\right)}{f_0\left(X_i\right)} g\left(X_i\right)=\frac{1}{N} \sum_{i=1}^N w_0\left(X_i\right) g\left(X_i\right)
+\]</span> where <span class="math display">\[
+w_0\left(X_i\right)=\frac{f\left(X_i\right)}{f_0\left(X_i\right)}
+\]</span> is called importance sampling weight.</p>
+<p>Note that <span class="math display">\[
+\mathbb{E}_{f_0}\left[w_0(X)\right] \equiv \mathbb{E}_{f_0}\left[\frac{f(X)}{f_0(X)}\right]=\int f(x) d x=1
+\]</span> so <span class="math display">\[
+\mathbb{E}_{f_0}\left[\frac{1}{N} \sum_{i=1}^N w_0\left(X_i\right)\right]=1
+\]</span> although for any realization <span class="math display">\[
+\frac{1}{N} \sum_{i=1}^N w_0\left(x_i\right) \neq 1
+\]</span> in general.</p>
+<p>We conclude the discussion of importance sampling with an example. Let us go back to the joint probability model involving <span class="math inline">\(X, Y, Z\)</span>. Consider two distributions for these three random variables:</p>
+<p><span class="math display">\[f: f_{X, Y, Z}(x, y, z)=f_X(x) f_{Z \mid X}(z \mid x) f_{Y \mid X, Z}(y \mid x, z)\]</span></p>
+<p><span class="math display">\[
+f^*: f_{X, Y, Z}^*(x, y, z)=f_X(x) f_Z^*(z) f_{Y \mid X, Z}(y \mid x, z) \quad \text { i.e. } X \perp \!\!\! \perp Z
+\]</span>
+Under these factorizations of joint density, we have</p>
+<p><span class="math display">\[
+\frac{f_{X, Y, Z}^*(x, y, Z)}{f_{X, Y, Z}(x, y, Z)}=\frac{f_Z^*(z)}{f_{Z \mid X}(z \mid x)}
+\]</span></p>
+<p>Thus, for any function <span class="math inline">\(g(x, y, z)\)</span>, using the importance sampling idea
+<span class="math display">\[
+\mathbb{E}_{f^*}[g(X, Y, Z)]= \mathbb{E}_f\left[\frac{f_{X, Y, Z}^*(x, y, z)}{f_{X, Y, Z}(x, y, z)} g(X,Y,Z)\right]= \mathbb{E}_f\left[\frac{f_Z^*(Z)}{f_{Z \mid X}(Z \mid X)} g(X, Y, Z)\right]
+\]</span>
+provided, for all <span class="math inline">\(z\)</span> such that <span class="math inline">\(f_Z^*(z)&gt;0\)</span>, we have <span class="math inline">\(f_{Z \mid X}(z \mid x)&gt;0\)</span> for all <span class="math inline">\(x\)</span>.</p>
+</div>
 </div>
 </div>
             </section>
